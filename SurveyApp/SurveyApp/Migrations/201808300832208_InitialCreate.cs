@@ -179,18 +179,18 @@ namespace SurveyApp.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
-            CreateTable(
-                "dbo.SurveyCandidate1",
-                c => new
-                    {
-                        Survey_SurveyId = c.Int(nullable: false),
-                        Candidate_CandidateId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.Survey_SurveyId, t.Candidate_CandidateId })
-                .ForeignKey("dbo.Surveys", t => t.Survey_SurveyId, cascadeDelete: true)
-                .ForeignKey("dbo.Candidates", t => t.Candidate_CandidateId, cascadeDelete: true)
-                .Index(t => t.Survey_SurveyId)
-                .Index(t => t.Candidate_CandidateId);
+            //CreateTable(
+            //    "dbo.SurveyCandidate1",
+            //    c => new
+            //        {
+            //            Survey_SurveyId = c.Int(nullable: false),
+            //            Candidate_CandidateId = c.Int(nullable: false),
+            //        })
+            //    .PrimaryKey(t => new { t.Survey_SurveyId, t.Candidate_CandidateId })
+            //    .ForeignKey("dbo.Surveys", t => t.Survey_SurveyId, cascadeDelete: true)
+            //    .ForeignKey("dbo.Candidates", t => t.Candidate_CandidateId, cascadeDelete: true)
+            //    .Index(t => t.Survey_SurveyId)
+            //    .Index(t => t.Candidate_CandidateId);
             
         }
         
@@ -205,11 +205,11 @@ namespace SurveyApp.Migrations
             DropForeignKey("dbo.QuestionBanks", "CategoryId", "dbo.Categories");
             DropForeignKey("dbo.SurveyAnswers", "SurveyId", "dbo.Surveys");
             DropForeignKey("dbo.Surveys", "OrgId", "dbo.Organizations");
-            DropForeignKey("dbo.SurveyCandidate1", "Candidate_CandidateId", "dbo.Candidates");
-            DropForeignKey("dbo.SurveyCandidate1", "Survey_SurveyId", "dbo.Surveys");
+          //  DropForeignKey("dbo.SurveyCandidate1", "Candidate_CandidateId", "dbo.Candidates");
+          //  DropForeignKey("dbo.SurveyCandidate1", "Survey_SurveyId", "dbo.Surveys");
             DropForeignKey("dbo.SurveyAnswers", "CandidateId", "dbo.Candidates");
-            DropIndex("dbo.SurveyCandidate1", new[] { "Candidate_CandidateId" });
-            DropIndex("dbo.SurveyCandidate1", new[] { "Survey_SurveyId" });
+          //  DropIndex("dbo.SurveyCandidate1", new[] { "Candidate_CandidateId" });
+          //  DropIndex("dbo.SurveyCandidate1", new[] { "Survey_SurveyId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
@@ -222,7 +222,7 @@ namespace SurveyApp.Migrations
             DropIndex("dbo.Surveys", new[] { "OrgId" });
             DropIndex("dbo.SurveyAnswers", new[] { "CandidateId" });
             DropIndex("dbo.SurveyAnswers", new[] { "SurveyId" });
-            DropTable("dbo.SurveyCandidate1");
+           // DropTable("dbo.SurveyCandidate1");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
