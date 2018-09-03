@@ -194,15 +194,15 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Content\Controllers\AccountController.cs" />
-    <Compile Include="Content\Controllers\CandidatesController.cs" />
-    <Compile Include="Content\Controllers\CategoriesController.cs" />
-    <Compile Include="Content\Controllers\HomeController.cs" />
-    <Compile Include="Content\Controllers\ManageController.cs" />
-    <Compile Include="Content\Controllers\OrganizationsController.cs" />
-    <Compile Include="Content\Controllers\QuestionBanksController.cs" />
-    <Compile Include="Content\Controllers\SurveyCandidatesController.cs" />
-    <Compile Include="Content\Controllers\SurveysController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CandidatesController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrganizationsController.cs" />
+    <Compile Include="Controllers\QuestionBanksController.cs" />
+    <Compile Include="Controllers\SurveyCandidatesController.cs" />
+    <Compile Include="Controllers\SurveysController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
