@@ -22,6 +22,7 @@ namespace SurveyApp.Models
         public string Answer { get; set; }
 
         public virtual Candidate Candidate { get; set; }
+        public virtual UserQuestion UserQuestion { get; set; }
         public virtual Survey Survey { get; set; }
     }
 }
