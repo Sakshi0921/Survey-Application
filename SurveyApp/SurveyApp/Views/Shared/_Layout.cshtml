@@ -35,13 +35,43 @@
                     {
                         <li>@Html.ActionLink("Add Admin", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
                     }
-                    
+
                     @*Only superadmin can add organization*@
 
 
                     @if (User.IsInRole("SuperAdmin"))
                     {
                         <li>@Html.ActionLink("Add Org", "Create", "Organizations", routeValues: null, htmlAttributes: new { id = "createOrganizationsLink" })</li>
+                    }
+
+                    @*Only superadmin can add category*@
+
+
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+                        <li>@Html.ActionLink("Add Ques Category", "Create", "Categories", routeValues: null, htmlAttributes: new { id = "createOrganizationsLink" })</li>
+                    }
+
+                    @*Only superadmin can update question bank*@
+
+
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+                        <li>@Html.ActionLink("Update QuesBank", "Create", "QuestionBanks", routeValues: null, htmlAttributes: new { id = "createOrganizationsLink" })</li>
+                    }
+
+                    @*Only admin can add candidate*@
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Add Candidate", "Create", "Candidates", routeValues: null, htmlAttributes: new { id = "createCandidatesLink" })</li>
+                    }
+
+                    @*Only admin can add survey*@
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Add Survey", "Create", "Surveys", routeValues: null, htmlAttributes: new { id = "createSurveysLink" })</li>
                     }
 
 
