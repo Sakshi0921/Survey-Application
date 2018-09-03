@@ -7,6 +7,13 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -22,12 +29,52 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("About", "About", "Home")</li>
 
-                    @*Only Super Admin should be able to see this option*@
+                    @*Only Super Admin should be able to see this option-to add admin*@
 
                     @if (User.IsInRole("SuperAdmin"))
                     {
                         <li>@Html.ActionLink("Add Admin", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
                     }
+
+                    @*Only superadmin can add organization*@
+
+
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+                        <li>@Html.ActionLink("Add Org", "Create", "Organizations", routeValues: null, htmlAttributes: new { id = "createOrganizationsLink" })</li>
+                    }
+
+                    @*Only superadmin can add category*@
+
+
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+                        <li>@Html.ActionLink("Add Ques Category", "Create", "Categories", routeValues: null, htmlAttributes: new { id = "createOrganizationsLink" })</li>
+                    }
+
+                    @*Only superadmin can update question bank*@
+
+
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+                        <li>@Html.ActionLink("Update QuesBank", "Create", "QuestionBanks", routeValues: null, htmlAttributes: new { id = "createOrganizationsLink" })</li>
+                    }
+
+                    @*Only admin can add candidate*@
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Add Candidate", "Create", "Candidates", routeValues: null, htmlAttributes: new { id = "createCandidatesLink" })</li>
+                    }
+
+                    @*Only admin can add survey*@
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Add Survey", "Create", "Surveys", routeValues: null, htmlAttributes: new { id = "createSurveysLink" })</li>
+                    }
+
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -43,6 +90,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

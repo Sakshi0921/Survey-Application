@@ -15,5 +15,8 @@ namespace SurveyApp.Models
         [Key]
         [Column(Order = 2)]
         public int QuestionId { get; set; }
+
+        public virtual Survey Survey { get; set; }
+        public virtual UserQuestion UserQuestion { get; set; }
     }
 }
