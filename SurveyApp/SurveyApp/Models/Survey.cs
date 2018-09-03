@@ -16,6 +16,8 @@ namespace SurveyApp.Models
         }
         [Key]
         public int SurveyId { get; set; }
+
+        public string SurveyName { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
         public string SurveyDesc { get; set; }
