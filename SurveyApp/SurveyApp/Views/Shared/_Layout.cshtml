@@ -20,8 +20,14 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
+
+                    @*Only Super Admin should be able to see this option*@
+
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+                        <li>@Html.ActionLink("Add Admin", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
