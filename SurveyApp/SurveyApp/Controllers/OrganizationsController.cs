@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using SurveyApp.Models;
 
 namespace SurveyApp.Controllers
@@ -51,11 +52,12 @@ namespace SurveyApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-                AccountController accountController = new AccountController();
                 db.Organization.Add(organization);
-                //if(organization.AdminId.Equals(accountController.))
                 db.SaveChanges();
+
+                //var adminUsers = Membership.GetAllUsers()
+
+               
                 return RedirectToAction("Index");
             }
 
