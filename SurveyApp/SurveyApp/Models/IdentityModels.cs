@@ -10,6 +10,8 @@ namespace SurveyApp.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        //Adding reference of Organization table in AspNetUser
+        public virtual Organization Organizations { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
 
@@ -18,9 +20,7 @@ namespace SurveyApp.Models
 
 
             // Add custom user claims here
-            //Adding reference of Organization table in AspNetUser
-           // public virtual Organization Organizations { get; set; }
-            
+
             return userIdentity;
         }
     }

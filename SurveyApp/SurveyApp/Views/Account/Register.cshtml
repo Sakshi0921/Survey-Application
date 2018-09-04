@@ -29,6 +29,17 @@
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
         </div>
     </div>
+
+    @*Code to add drop down for organization name *@
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.OrgId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.OrgId,(SelectList)ViewBag.OrgList,"Select Org")
+        </div>
+    </div>
+
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-default" value="Register" />

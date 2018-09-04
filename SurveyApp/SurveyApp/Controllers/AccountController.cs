@@ -16,6 +16,7 @@ namespace SurveyApp.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -142,6 +143,8 @@ namespace SurveyApp.Controllers
         [Authorize(Roles ="SuperAdmin")]
         public ActionResult Register()
         {
+            
+            ViewBag.OrgList= new SelectList(db.Organization.Select(x => new { Value = x.OrgId, Text = x.OrgName }), "Value", "Text");
             return View();
         }
 
