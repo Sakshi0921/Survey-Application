@@ -10,6 +10,7 @@ namespace SurveyApp.Controllers
     {
         public ActionResult Index()
         {
+
             return View();
         }
 

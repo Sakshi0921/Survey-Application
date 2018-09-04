@@ -143,8 +143,19 @@ namespace SurveyApp.Controllers
         [Authorize(Roles ="SuperAdmin")]
         public ActionResult Register()
         {
-            
-            ViewBag.OrgList= new SelectList(db.Organization.Select(x => new { Value = x.OrgId, Text = x.OrgName }), "Value", "Text");
+            var chk = from n in db.Organization select n;
+            var i = chk.Count();
+            if (i == 0)
+            {
+
+                ViewBag.OrgList = null;
+            }
+            else
+            {
+                ViewBag.OrgList = new SelectList(db.Organization.Select(x => new { Value = x.OrgId, Text = x.OrgName }), "Value", "Text");
+            }
+
+
             return View();
         }
 
@@ -158,6 +169,7 @@ namespace SurveyApp.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
+                
                 if (ModelState.IsValid)
                 {
                     var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
