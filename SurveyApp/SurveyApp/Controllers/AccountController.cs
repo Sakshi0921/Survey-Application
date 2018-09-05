@@ -20,7 +20,15 @@ namespace SurveyApp.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public AccountController()
+        [HttpPost]
+        public JsonResult DoesUserNameExist(string UserName)
+        {
+ 
+            ApplicationDbContext db = new ApplicationDbContext();
+            return Json(db.Users.Any(x => x.UserName == UserName));
+        }
+
+            public AccountController()
         {
         }
 
@@ -169,9 +177,6 @@ namespace SurveyApp.Controllers
                     var userStore = new UserStore<ApplicationUser>(context);
                     var userManager = new UserManager<ApplicationUser>(userStore);
                     userManager.AddToRole(user.Id, "Admin");
-
-
-
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
