@@ -6,7 +6,6 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 using SurveyApp.Models;
 
 namespace SurveyApp.Controllers
@@ -48,16 +47,12 @@ namespace SurveyApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "OrgId,OrgName,AdminId")] Organization organization)
+        public ActionResult Create([Bind(Include = "OrgId,OrgName,Location")] Organization organization)
         {
             if (ModelState.IsValid)
             {
                 db.Organization.Add(organization);
                 db.SaveChanges();
-
-                //var adminUsers = Membership.GetAllUsers()
-
-               
                 return RedirectToAction("Index");
             }
 
@@ -84,7 +79,7 @@ namespace SurveyApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OrgId,OrgName,AdminId")] Organization organization)
+        public ActionResult Edit([Bind(Include = "OrgId,OrgName,Location")] Organization organization)
         {
             if (ModelState.IsValid)
             {

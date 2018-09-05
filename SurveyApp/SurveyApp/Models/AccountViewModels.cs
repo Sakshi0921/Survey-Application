@@ -83,6 +83,8 @@ namespace SurveyApp.Models
         [Display(Name = "Confirm password")]
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        [Required]
+        public int OrgId { get; set; }
     }
 
     public class ResetPasswordViewModel

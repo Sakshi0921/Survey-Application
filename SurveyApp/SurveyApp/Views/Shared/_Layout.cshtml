@@ -37,8 +37,7 @@
                     }
 
                     @*Only superadmin can add organization*@
-
-
+                    
                     @if (User.IsInRole("SuperAdmin"))
                     {
                         <li>@Html.ActionLink("Add Org", "Create", "Organizations", routeValues: null, htmlAttributes: new { id = "createOrganizationsLink" })</li>

@@ -10,6 +10,8 @@ namespace SurveyApp.Models
     {
         [Key]
         public int QuestionId { get; set; }
+
+        [Required(ErrorMessage="Please enter the question")]
         public string Question { get; set; }
         public string Type { get; set; }
         public Nullable<int> CategoryId { get; set; }
