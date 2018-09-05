@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using SurveyApp.Common;
 using SurveyApp.Models;
 
 namespace SurveyApp.Controllers
@@ -20,7 +21,15 @@ namespace SurveyApp.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public AccountController()
+        [HttpPost]
+        public JsonResult DoesUserNameExist(string UserName)
+        {
+ 
+            ApplicationDbContext db = new ApplicationDbContext();
+            return Json(db.Users.Any(x => x.UserName == UserName));
+        }
+
+            public AccountController()
         {
         }
 
@@ -183,9 +192,6 @@ namespace SurveyApp.Controllers
                     var userStore = new UserStore<ApplicationUser>(context);
                     var userManager = new UserManager<ApplicationUser>(userStore);
                     userManager.AddToRole(user.Id, "Admin");
-
-
-
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -237,7 +243,7 @@ namespace SurveyApp.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                if (user == null )//|| !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
@@ -249,6 +255,20 @@ namespace SurveyApp.Controllers
                 // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
                 // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+
+                string token = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var lnkHref = "<a href='" + Url.Action("ResetPassword", "Account", new { email = model.Email, code = token }, "http") + "'>Reset Password</a>";
+                
+                //HTML Template for Send email  
+
+                string subject = "Your changed password";
+                string body = "<b>Please find the Password Reset Link. </b><br/>" + lnkHref;
+
+                //Call send email methods.  
+
+                EmailManager.SendEmail(subject, body, model.Email);
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
+
             }
 
             // If we got this far, something failed, redisplay form
