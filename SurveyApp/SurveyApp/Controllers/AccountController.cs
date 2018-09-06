@@ -185,8 +185,7 @@ namespace SurveyApp.Controllers
                 if (ModelState.IsValid)
                 {
 
-                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                    var result = await UserManager.CreateAsync(user, model.Password);
+                    
 
                     if (UserManager.FindByEmail(model.Email) != null)
                     {
@@ -206,6 +205,9 @@ namespace SurveyApp.Controllers
 
                         return View(model);
                     }
+
+                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                    var result = await UserManager.CreateAsync(user, model.Password);
                     //Code to add admin only by superadmin
 
                     var roleStore = new RoleStore<IdentityRole>(context);
@@ -273,13 +275,13 @@ namespace SurveyApp.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
                 // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 // return RedirectToAction("ForgotPasswordConfirmation", "Account");
 
-                string token = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                var lnkHref = "<a href='" + Url.Action("ResetPassword", "Account", new { email = model.Email, code = token }, "http") + "'>Reset Password</a>";
+                //string token = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var lnkHref = "<a href='" + Url.Action("ResetPassword", "Account", new { email = model.Email, code = code }, "http") + "'>Reset Password</a>";
                 
                 //HTML Template for Send email  
 
