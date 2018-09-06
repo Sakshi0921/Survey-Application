@@ -27,12 +27,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("dropRoles", new List<SelectListItem>()
-                    {
-                        new SelectListItem() { Text= "Comment", Value = "Comment" },
-                        new SelectListItem() { Text= "Binary", Value = "Binary" },
-                        new SelectListItem() { Text= "Rating", Value = "Rating", Selected = true }
-                    }, "Select ...", new { @class = "control-label col-md-2" })
+                <span>Binary: </span>
+                @Html.RadioButtonFor(Model => Model.Type, "Binary", true)
+                <span>Rating: </span>
+                @Html.RadioButtonFor(Model => Model.Type, "Rating")
+                <span>Comment: </span>
+                @Html.RadioButtonFor(Model => Model.Type, "Comment")
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
                 @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
             </div>
         </div>
