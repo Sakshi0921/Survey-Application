@@ -52,6 +52,7 @@ namespace SurveyApp.Controllers
             if (ModelState.IsValid)
             {
                 db.Candidate.Add(candidate);
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

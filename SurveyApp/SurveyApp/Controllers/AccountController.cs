@@ -184,9 +184,28 @@ namespace SurveyApp.Controllers
                 
                 if (ModelState.IsValid)
                 {
+
                     var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                     var result = await UserManager.CreateAsync(user, model.Password);
 
+                    if (UserManager.FindByEmail(model.Email) != null)
+                    {
+                        ModelState.AddModelError(string.Empty, "The entered Email already exists...Enter a vaild one");
+
+                        var i = (from n in db.Organization select n).Count();
+                        if (i == 0)
+                        {
+
+                            ViewBag.OrgList = null;
+                        }
+                        else
+                        {
+                            ViewBag.OrgList = new SelectList(db.Organization.Select(x => new { Value = x.OrgId, Text = x.OrgName }), "Value", "Text");
+                        }
+
+
+                        return View(model);
+                    }
                     //Code to add admin only by superadmin
 
                     var roleStore = new RoleStore<IdentityRole>(context);
@@ -209,7 +228,7 @@ namespace SurveyApp.Controllers
                     }
                     AddErrors(result);
                 }
-
+               
                 // If we got this far, something failed, redisplay form
                 return View(model);
             }
