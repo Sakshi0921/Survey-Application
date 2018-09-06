@@ -204,6 +204,7 @@
     <Compile Include="Controllers\QuestionBanksController.cs" />
     <Compile Include="Controllers\SurveyCandidatesController.cs" />
     <Compile Include="Controllers\SurveysController.cs" />
+    <Compile Include="Controllers\UserQuestionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -361,6 +362,11 @@
     <Content Include="Views\Organizations\Details.cshtml" />
     <Content Include="Views\Organizations\Edit.cshtml" />
     <Content Include="Views\Organizations\Index.cshtml" />
+    <Content Include="Views\UserQuestions\Create.cshtml" />
+    <Content Include="Views\UserQuestions\Delete.cshtml" />
+    <Content Include="Views\UserQuestions\Details.cshtml" />
+    <Content Include="Views\UserQuestions\Edit.cshtml" />
+    <Content Include="Views\UserQuestions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
