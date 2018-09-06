@@ -37,7 +37,7 @@
                     }
 
                     @*Only superadmin can add organization*@
-                    
+
                     @if (User.IsInRole("SuperAdmin"))
                     {
                         <li>@Html.ActionLink("Organization", "Index", "Organizations", routeValues: null, htmlAttributes: new { id = "createOrganizationsLink" })</li>
@@ -73,6 +73,12 @@
                         <li>@Html.ActionLink("Survey", "Create", "Surveys", routeValues: null, htmlAttributes: new { id = "createSurveysLink" })</li>
                     }
 
+                    @*Only admin can add UserQuestion*@
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("UserQuestions", "Create", "UserQuestion", routeValues: null, htmlAttributes: new { id = "createUserQuestion" })</li>
+                    }
 
                 </ul>
                 @Html.Partial("_LoginPartial")
