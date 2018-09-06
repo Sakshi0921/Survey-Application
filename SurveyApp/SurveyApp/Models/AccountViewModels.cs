@@ -69,8 +69,7 @@ namespace SurveyApp.Models
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
-        [Remote("DoesUserNameExist", "Account", HttpMethod = "POST", ErrorMessage = "User name already exists. Please enter a different user name.")]
-        //[ServerSideRemote("Account", "doesUserNameExistGet")]
+        //[Remote("DoesUserNameExist", "Account", HttpMethod = "POST", ErrorMessage = "User name already exists. Please enter a different user name.")]
         public string Email { get; set; }
 
         [Required]

@@ -18,7 +18,7 @@ namespace SurveyApp.Common
             string Password = ConfigurationManager.AppSettings.Get("Password");
             string SMTPPort = ConfigurationManager.AppSettings.Get("SMTPPort");
             string Host = ConfigurationManager.AppSettings.Get("Host");
-            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
+            MailMessage mail = new MailMessage();
             mail.To.Add(To);
             mail.From = new MailAddress(From);
             mail.Subject = Subject;
