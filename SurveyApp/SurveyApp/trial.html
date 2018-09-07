@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -50,24 +51,22 @@
             div.style.display = "none";
         }
 
-        // $(document).ready(function () {
-        //     BindControls();
-        // });
 
         function AddElement() {
-            static Counter = 0;    // COUNTER TO SET ELEMENT IDs.
-
+            this.Counter=++this.Counter||1;    // COUNTER TO SET ELEMENT IDs.
             var para = document.createElement("p");
-            var node = document.createTextNode("<input type =\"text\" name=\" " + Counter +"\"/>");
-            para.appendChild(node);
+            var x = document.createElement("input");
+            x.setAttribute("type","text");
+            x.setAttribute("name","Question"+ this.Counter)
+            para.appendChild(x);
+  //to create drop down list
             var element = document.getElementById("repeat");
             element.appendChild(para);
-
         }
     </script>
 
 
 </body>
-</body>
+
 
 </html>
