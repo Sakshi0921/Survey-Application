@@ -10,7 +10,6 @@ using SurveyApp.Models;
 
 namespace SurveyApp.Controllers
 {
-    [Authorize(Roles ="Admin")]
     public class CandidatesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -18,7 +17,8 @@ namespace SurveyApp.Controllers
         // GET: Candidates
         public ActionResult Index()
         {
-            return View(db.Candidate.ToList());
+            var candidate = db.Candidate.Include(c => c.Organization);
+            return View(candidate.ToList());
         }
 
         // GET: Candidates/Details/5
@@ -39,6 +39,7 @@ namespace SurveyApp.Controllers
         // GET: Candidates/Create
         public ActionResult Create()
         {
+            ViewBag.OrgId = new SelectList(db.Organization, "OrgId", "OrgName");
             return View();
         }
 
@@ -47,16 +48,16 @@ namespace SurveyApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CandidateId,Name,Email,PhoneNumber")] Candidate candidate)
+        public ActionResult Create([Bind(Include = "CandidateId,Name,Email,PhoneNumber,OrgId")] Candidate candidate)
         {
             if (ModelState.IsValid)
             {
                 db.Candidate.Add(candidate);
-
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            ViewBag.OrgId = new SelectList(db.Organization, "OrgId", "OrgName", candidate.OrgId);
             return View(candidate);
         }
 
@@ -72,6 +73,7 @@ namespace SurveyApp.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.OrgId = new SelectList(db.Organization, "OrgId", "OrgName", candidate.OrgId);
             return View(candidate);
         }
 
@@ -80,7 +82,7 @@ namespace SurveyApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CandidateId,Name,Email,PhoneNumber")] Candidate candidate)
+        public ActionResult Edit([Bind(Include = "CandidateId,Name,Email,PhoneNumber,OrgId")] Candidate candidate)
         {
             if (ModelState.IsValid)
             {
@@ -88,6 +90,7 @@ namespace SurveyApp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.OrgId = new SelectList(db.Organization, "OrgId", "OrgName", candidate.OrgId);
             return View(candidate);
         }
 
