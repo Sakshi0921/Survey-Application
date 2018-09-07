@@ -12,6 +12,12 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.survey.SurveyName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SurveyQuesNo)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Question)
         </th>
         <th>
@@ -22,6 +28,12 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.survey.SurveyName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SurveyQuesNo)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Question)
         </td>

@@ -20,10 +20,9 @@ namespace SurveyApp.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
 
-       // public int OrgId { get; set; }
-        
-       
-        //public virtual Organization Organization { get; set; }
+        public int OrgId { get; set; }
+
+       public virtual Organization Organization { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurveyAnswer> SurveyAnswers { get; set; }

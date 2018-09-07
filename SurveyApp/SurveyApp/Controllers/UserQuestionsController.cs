@@ -17,7 +17,8 @@ namespace SurveyApp.Controllers
         // GET: UserQuestions
         public ActionResult Index()
         {
-            return View(db.UserQuestion.ToList());
+            var userQuestion = db.UserQuestion.Include(u => u.survey);
+            return View(userQuestion.ToList());
         }
 
         // GET: UserQuestions/Details/5
@@ -38,6 +39,7 @@ namespace SurveyApp.Controllers
         // GET: UserQuestions/Create
         public ActionResult Create()
         {
+            ViewBag.SurveyId = new SelectList(db.Surveys, "SurveyId", "SurveyName");
             return View();
         }
 
@@ -46,7 +48,7 @@ namespace SurveyApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UQuestionId,Question,Type")] UserQuestion userQuestion)
+        public ActionResult Create([Bind(Include = "UQuestionId,SurveyId,SurveyQuesNo,Question,Type")] UserQuestion userQuestion)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +57,7 @@ namespace SurveyApp.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.SurveyId = new SelectList(db.Surveys, "SurveyId", "SurveyName", userQuestion.SurveyId);
             return View(userQuestion);
         }
 
@@ -70,6 +73,7 @@ namespace SurveyApp.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.SurveyId = new SelectList(db.Surveys, "SurveyId", "SurveyName", userQuestion.SurveyId);
             return View(userQuestion);
         }
 
@@ -78,7 +82,7 @@ namespace SurveyApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UQuestionId,Question,Type")] UserQuestion userQuestion)
+        public ActionResult Edit([Bind(Include = "UQuestionId,SurveyId,SurveyQuesNo,Question,Type")] UserQuestion userQuestion)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +90,7 @@ namespace SurveyApp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.SurveyId = new SelectList(db.Surveys, "SurveyId", "SurveyName", userQuestion.SurveyId);
             return View(userQuestion);
         }
 
