@@ -1,0 +1,73 @@
+<html>
+
+<head>
+    <title>LALA</title>
+</head>
+
+<body>
+    <label>UserDefined</label>
+    <p>
+        <Button onclick="showUQs()">Add Custom Questions</Button>
+        <Button onclick="hideUQs()">Clear Custom Questions</Button>
+        <div id=UserDefined style="display: none;">
+            Will have a form to enter questions
+        </div>
+        <div>
+            Stuff that will repeat
+            <button id="btAdd" onclick="AddElement()">+</button>
+            <!--THE CONTAINER TO HOLD THE DYNAMICALLY CREATED ELEMENTS.-->
+            <div id="repeat"></div>
+        </div>
+
+    </p>
+
+
+    <label>PreDefined</label>
+    <p>
+        <Button onclick="showPQs()">Add Pre-defined Questions</Button>
+        <Button onclick="hidePQs()">Clear Pre-defined Questions</Button>
+        <div id=PreDefined style="display: none;">
+            Will have checkboxes here
+        </div>
+    </p>
+
+
+    <script>
+        function showUQs() {
+            var div = document.getElementById("UserDefined");
+            div.style.display = "block"
+        }
+        function hideUQs() {
+            var div = document.getElementById("UserDefined");
+            div.style.display = "none"
+        }
+        function showPQs() {
+            var div = document.getElementById("PreDefined");
+            div.style.display = "block";
+        }
+        function hidePQs() {
+            var div = document.getElementById("PreDefined");
+            div.style.display = "none";
+        }
+
+        // $(document).ready(function () {
+        //     BindControls();
+        // });
+
+        function AddElement() {
+            static Counter = 0;    // COUNTER TO SET ELEMENT IDs.
+
+            var para = document.createElement("p");
+            var node = document.createTextNode("<input type =\"text\" name=\" " + Counter +"\"/>");
+            para.appendChild(node);
+            var element = document.getElementById("repeat");
+            element.appendChild(para);
+
+        }
+    </script>
+
+
+</body>
+</body>
+
+</html>
