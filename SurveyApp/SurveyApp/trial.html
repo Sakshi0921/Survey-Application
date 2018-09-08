@@ -11,11 +11,9 @@
         <Button onclick="showUQs()">Add Custom Questions</Button>
         <Button onclick="hideUQs()">Clear Custom Questions</Button>
         <div id=UserDefined style="display: none;">
-            Will have a form to enter questions
-        </div>
-        <div>
-            Stuff that will repeat
+            <h3>Click the button to add Custon Questions:</h3>
             <button id="btAdd" onclick="AddElement()">+</button>
+            <br>Please add your question in the textboxes along with the types drom dropdown list.
             <!--THE CONTAINER TO HOLD THE DYNAMICALLY CREATED ELEMENTS.-->
             <div id="repeat"></div>
         </div>
@@ -28,7 +26,7 @@
         <Button onclick="showPQs()">Add Pre-defined Questions</Button>
         <Button onclick="hidePQs()">Clear Pre-defined Questions</Button>
         <div id=PreDefined style="display: none;">
-            Will have checkboxes here
+            paste the view here of details with checkboxes of details
         </div>
     </p>
 
@@ -53,13 +51,23 @@
 
 
         function AddElement() {
-            this.Counter=++this.Counter||1;    // COUNTER TO SET ELEMENT IDs.
+            this.Counter = ++this.Counter || 1;    // COUNTER TO SET ELEMENT IDs.
             var para = document.createElement("p");
             var x = document.createElement("input");
-            x.setAttribute("type","text");
-            x.setAttribute("name","Question"+ this.Counter)
+            x.setAttribute("type", "text");
+            x.setAttribute("name", "Question" + this.Counter)
             para.appendChild(x);
-  //to create drop down list
+            //to create drop down list
+            var div = document.querySelector("#repeat"),
+                frag = document.createDocumentFragment(),
+                select = document.createElement("select");
+
+            select.options.add(new Option("Binary", "Binary", true, true));
+            select.options.add(new Option("Rating", "Rating"));
+
+
+            frag.appendChild(select);
+            div.appendChild(frag)
             var element = document.getElementById("repeat");
             element.appendChild(para);
         }
