@@ -6,8 +6,8 @@
 </head>
 
 <body onload="determineType()">
-    <!--The text inside the dev shoud dynamically create element-->
-    <div id="type">Comment</div>
+    <!--The text inside this div shoud dynamically create element(sensitive)-->
+    <div id="type">Rating</div>
 
     <!--Hidden input type with question id and candidate-->
     <div id="autogenerate">
@@ -16,12 +16,13 @@
 
     <script>
         function determineType() {
-            alert("func");
-            var item = document.getElementById("type").textContent;
+            var item = document.getElementById("type");
+            item.style.display = "none";
+            var itemdata = document.getElementById("type").textContent;
             console.log("function reacehd")
-            if ("Comment" == item) { MakeTextBox() }
-            if ("Binary" == item) { MakeBinary() }
-            if ("Rating" == item) { Rating() }
+            if ("Comment" == itemdata) { MakeTextBox() }
+            if ("Binary" == itemdata) { MakeBinary() }
+            if ("Rating" == itemdata) { Rating() }
         }
         function MakeTextBox() {// text feild here
             var para = document.createElement("p");
