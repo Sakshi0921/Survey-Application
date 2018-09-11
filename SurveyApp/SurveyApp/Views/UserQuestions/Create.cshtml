@@ -17,12 +17,6 @@
 
 </div>
 
-
-
-
-
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -35,7 +29,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SurveyId, "SurveyId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("SurveyId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("SurveyId", (SelectList)ViewBag.SurveyIDList, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SurveyId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -102,8 +96,8 @@
             var div = document.querySelector("#repeat"),
                 frag = document.createDocumentFragment(),
 
-                select = document.createElement("select");
-            select.setAttribute("name", "type" + this.counter);
+            select = document.createElement("select");
+            select.setAttribute("name", "type" + this.Counter);
             select.options.add(new Option("Binary", "Binary", true, true));
             select.options.add(new Option("Rating", "Rating"));
             select.options.add(new Option("Comment", "Comment"));

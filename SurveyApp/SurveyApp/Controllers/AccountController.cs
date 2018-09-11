@@ -21,17 +21,6 @@ namespace SurveyApp.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        //The email search shit that was not working
-        //[HttpPost]
-        //public JsonResult DoesUserNameExist(string Email)
-        //{
- 
-        //    ApplicationDbContext db = new ApplicationDbContext();
-        //    var temp = !db.Users.Any(x => x.UserName == Email);
-
-        //    return Json(temp, JsonRequestBehavior.AllowGet);
-        //}
-
             public AccountController()
         {
         }

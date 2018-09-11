@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
+using System.Net;   
 using System.Web;
 using System.Web.Mvc;
 using SurveyApp.Models;
@@ -40,7 +40,7 @@ namespace SurveyApp.Controllers
         // GET: UserQuestions/Create
         public ActionResult Create()
         {
-            ViewBag.SurveyId = new SelectList(db.Surveys, "SurveyId", "SurveyName");
+            ViewBag.SurveyIDList = new SelectList(db.Surveys.Select(x=> new { SurveyId = x.SurveyId, SurveyName = x.SurveyName }), "SurveyId", "SurveyName");
             return View();
         }
 
@@ -49,42 +49,29 @@ namespace SurveyApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UQuestionId,SurveyId,SurveyQuesNo,Question,Type")] UserQuestion userQuestion)
+        [Authorize(Roles = "Admin")]
+        public ActionResult Create(FormCollection formCollection)
         {
-            if (ModelState.IsValid)
+            ApplicationDbContext db = new ApplicationDbContext();
+            UserQuestion userQuestion = new UserQuestion();
+            userQuestion.SurveyId = Int32.Parse(formCollection["SurveyId"]);
+
+            var qCount = (formCollection.Count - 1)/2;
+            for (int i = 1; i <= qCount; i++)
             {
-                db.UserQuestion.Add(userQuestion);
+                userQuestion.SurveyQuesNo = i;
+                userQuestion.Question = formCollection["Question" + i];
+                userQuestion.Type = formCollection["type" + i];
+                db.UserQuestion.Add(userQuestion);//Error handling in both the lines needed
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
 
-            ViewBag.SurveyId = new SelectList(db.Surveys, "SurveyId", "SurveyName", userQuestion.SurveyId);
-            return View(userQuestion);
+
+            return RedirectToAction("Index");
         }
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-
-        //public ActionResult Create(FormCollection formCollection)
-        //{
-        //    ApplicationDbContext db = new ApplicationDbContext();
-        //    UserQuestion userQuesion = new UserQuestion();
-
-        //    var qCount = (formCollection.Count - 1) / 2;
-        //    for (int i = 1; i <= qCount; i++)
-        //    {
-        //        userQuesion.SurveyId = Int32.Parse(formCollection["SurveyId"]);
-        //        userQuesion.SurveyQuesNo = i;
-        //        userQuesion.Question = formCollection["Question" + i];
-         //           userQuestion.
-
-
-
-
-        //    }
-        //}
 
 
 
