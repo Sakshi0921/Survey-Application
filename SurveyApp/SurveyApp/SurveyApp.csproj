@@ -357,20 +357,19 @@
     <Content Include="Views\Organizations\Details.cshtml" />
     <Content Include="Views\Organizations\Edit.cshtml" />
     <Content Include="Views\Organizations\Index.cshtml" />
-    <Content Include="Views\Candidates\Create.cshtml" />
-    <Content Include="Views\Candidates\Delete.cshtml" />
-    <Content Include="Views\Candidates\Details.cshtml" />
-    <Content Include="Views\Candidates\Edit.cshtml" />
-    <Content Include="Views\Candidates\Index.cshtml" />
     <Content Include="Views\UserQuestions\Create.cshtml" />
     <Content Include="Views\UserQuestions\Delete.cshtml" />
     <Content Include="Views\UserQuestions\Details.cshtml" />
     <Content Include="Views\UserQuestions\Edit.cshtml" />
     <Content Include="Views\UserQuestions\Index.cshtml" />
+    <Content Include="Views\Candidates\Create.cshtml" />
+    <Content Include="Views\Candidates\Delete.cshtml" />
+    <Content Include="Views\Candidates\Details.cshtml" />
+    <Content Include="Views\Candidates\Edit.cshtml" />
+    <Content Include="Views\Candidates\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Categories\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

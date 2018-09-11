@@ -5,12 +5,29 @@
 }
 
 <h2>Create</h2>
+<br />
 
 
-@using (Html.BeginForm()) 
+<Button onclick="showUQs()">Add Custom Questions</Button>
+@* <Button onclick="hideUQs()">Clear Custom Questions</Button> *@
+<h3>Click the button to add Custon Questions:</h3>
+<div id=UserDefined style="display: none;">
+    <button id="btAdd" onclick="AddElement()">+</button>
+    <br>Please add your question in the textboxes along with the types drom dropdown list.
+
+</div>
+
+
+
+
+
+
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
+
     <div class="form-horizontal">
         <h4>UserQuestion</h4>
         <hr />
@@ -23,42 +40,86 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SurveyQuesNo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SurveyQuesNo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SurveyQuesNo, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    </div>
+    <label>UserDefined</label>
+    <p>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Question, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Question, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Question, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <span>Binary: </span>
-                @Html.RadioButtonFor(Model => Model.Type, "Binary", true)
-                <span>Rating: </span>
-                @Html.RadioButtonFor(Model => Model.Type, "Rating")
-                <span>Comment: </span>
-                @Html.RadioButtonFor(Model => Model.Type, "Comment")
-                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
-                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <!--THE CONTAINER TO HOLD THE DYNAMICALLY CREATED ELEMENTS.-->
+        <div id="repeat"></div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+
+    </p>
+
+
+    @*<label>PreDefined</label>
+        <p>
+            <Button onclick="showPQs()">Add Pre-defined Questions</Button>
+            <Button onclick="hidePQs()">Clear Pre-defined Questions</Button>
+            <div id=PreDefined style="display: none;">
+                paste the view here of details with checkboxes of details
             </div>
+        </p>*@
+
+
+    <script>
+        function showUQs() {
+            var div = document.getElementById("UserDefined");
+            div.style.display = "block"
+        }
+        function hideUQs() {
+            var div = document.getElementById("UserDefined");
+            div.style.display = "none"
+        }
+        function showPQs() {
+            var div = document.getElementById("PreDefined");
+            div.style.display = "block";
+        }
+        function hidePQs() {
+            var div = document.getElementById("PreDefined");
+            div.style.display = "none";
+        }
+
+    </script>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
         </div>
     </div>
+
+    <script>
+        function AddElement() {
+            this.Counter = ++this.Counter || 1;    // COUNTER TO SET ELEMENT IDs.
+            var para = document.createElement("p");
+            var x = document.createElement("input");
+            x.setAttribute("type", "text");
+            x.setAttribute("name", "Question" + this.Counter)
+            para.appendChild(x);
+            //to create drop down list
+            var div = document.querySelector("#repeat"),
+                frag = document.createDocumentFragment(),
+
+                select = document.createElement("select");
+            select.setAttribute("name", "type" + this.counter);
+            select.options.add(new Option("Binary", "Binary", true, true));
+            select.options.add(new Option("Rating", "Rating"));
+            select.options.add(new Option("Comment", "Comment"));
+
+
+            frag.appendChild(select);
+            div.appendChild(frag)
+            var element = document.getElementById("repeat");
+            element.appendChild(para);
+        }
+    </script>
+
+
+
+
+
 }
 
 <div>

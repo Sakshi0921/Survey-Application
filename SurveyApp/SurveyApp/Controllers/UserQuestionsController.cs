@@ -10,7 +10,8 @@ using SurveyApp.Models;
 
 namespace SurveyApp.Controllers
 {
-    public class UserQuestionsController : Controller
+    
+       public class UserQuestionsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -43,9 +44,11 @@ namespace SurveyApp.Controllers
             return View();
         }
 
-        // POST: UserQuestions/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //POST: UserQuestions/Create
+        //To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UQuestionId,SurveyId,SurveyQuesNo,Question,Type")] UserQuestion userQuestion)
@@ -60,6 +63,31 @@ namespace SurveyApp.Controllers
             ViewBag.SurveyId = new SelectList(db.Surveys, "SurveyId", "SurveyName", userQuestion.SurveyId);
             return View(userQuestion);
         }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+
+        //public ActionResult Create(FormCollection formCollection)
+        //{
+        //    ApplicationDbContext db = new ApplicationDbContext();
+        //    UserQuestion userQuesion = new UserQuestion();
+
+        //    var qCount = (formCollection.Count - 1) / 2;
+        //    for (int i = 1; i <= qCount; i++)
+        //    {
+        //        userQuesion.SurveyId = Int32.Parse(formCollection["SurveyId"]);
+        //        userQuesion.SurveyQuesNo = i;
+        //        userQuesion.Question = formCollection["Question" + i];
+         //           userQuestion.
+
+
+
+
+        //    }
+        //}
+
+
+
 
         // GET: UserQuestions/Edit/5
         public ActionResult Edit(int? id)
