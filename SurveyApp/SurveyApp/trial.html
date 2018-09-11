@@ -58,9 +58,10 @@
             x.setAttribute("name", "Question" + this.Counter)
             para.appendChild(x);
             //to create drop down list
-            var div = document.querySelector("#repeat"),
-                frag = document.createDocumentFragment(),
+            var div = document.querySelector("#repeat");
+                frag = document.createDocumentFragment()
                 select = document.createElement("select");
+                select.setAttribute("name", "type"+ this.Counter)
 
             select.options.add(new Option("Binary", "Binary", true, true));
             select.options.add(new Option("Rating", "Rating"));

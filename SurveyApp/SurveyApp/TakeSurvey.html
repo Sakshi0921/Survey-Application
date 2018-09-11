@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>LALA</title>
+</head>
+
+<body onload="determineType()">
+    <!--The text inside this div shoud dynamically create element(sensitive)-->
+    <div id="type">Rating</div>
+
+    <!--Hidden input type with question id and candidate-->
+    <div id="autogenerate">
+        <label>Answer:</label>
+    </div>
+
+    <script>
+        function determineType() {
+            var item = document.getElementById("type");
+            item.style.display = "none";
+            var itemdata = document.getElementById("type").textContent;
+            console.log("function reacehd")
+            if ("Comment" == itemdata) { MakeTextBox() }
+            if ("Binary" == itemdata) { MakeBinary() }
+            if ("Rating" == itemdata) { Rating() }
+        }
+        function MakeTextBox() {// text feild here
+            var para = document.createElement("p");
+            var x = document.createElement("input");
+            x.setAttribute("type", "text");
+            x.setAttribute("name", "Question");
+            para.appendChild(x);
+            var element = document.getElementById("autogenerate");
+            element.appendChild(para);
+        }
+        function MakeBinary() {// it should create a positive or negative button
+            var div = document.querySelector("#autogenerate");
+            frag = document.createDocumentFragment()
+            select = document.createElement("select");
+            select.setAttribute("name", "type")
+            select.options.add(new Option("Positive", "Positive", true, true));
+            select.options.add(new Option("Negative", "Negative"));
+            frag.appendChild(select);
+            div.appendChild(frag)
+        }
+        function Rating() {
+            // it should create a 1-5 rating drop down list
+            alert("The heigher the number the better and vice versa.")
+            var div = document.querySelector("#autogenerate");
+            frag = document.createDocumentFragment()
+            select = document.createElement("select");
+            select.setAttribute("name", "type")
+            select.options.add(new Option("1", "1", true, true));
+            select.options.add(new Option("2", "2"));
+            select.options.add(new Option("3", "3"));
+            select.options.add(new Option("4", "4"));
+            select.options.add(new Option("5", "5"));
+            frag.appendChild(select);
+            div.appendChild(frag)
+        }
+    </script>
+</body>
+
+</html>
