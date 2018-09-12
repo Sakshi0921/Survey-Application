@@ -17,7 +17,7 @@ namespace SurveyApp.Controllers
         // GET: SurveyAnswers
         public ActionResult Index()
         {
-            var surveyAnswer = db.SurveyAnswer.Include(s => s.Candidate).Include(s => s.Survey).Include(s => s.userQuestion);
+            var surveyAnswer = db.SurveyAnswer.Include(s => s.Candidate).Include(s => s.Survey);
             return View(surveyAnswer.ToList());
         }
 
@@ -41,7 +41,6 @@ namespace SurveyApp.Controllers
         {
             ViewBag.CandidateId = new SelectList(db.Candidate, "CandidateId", "Name");
             ViewBag.SurveyId = new SelectList(db.Surveys, "SurveyId", "SurveyName");
-            ViewBag.UQuestionId = new SelectList(db.UserQuestion, "UQuestionId", "Question");
             return View();
         }
 
@@ -61,7 +60,6 @@ namespace SurveyApp.Controllers
 
             ViewBag.CandidateId = new SelectList(db.Candidate, "CandidateId", "Name", surveyAnswer.CandidateId);
             ViewBag.SurveyId = new SelectList(db.Surveys, "SurveyId", "SurveyName", surveyAnswer.SurveyId);
-            ViewBag.UQuestionId = new SelectList(db.UserQuestion, "UQuestionId", "Question", surveyAnswer.UQuestionId);
             return View(surveyAnswer);
         }
 
@@ -79,7 +77,6 @@ namespace SurveyApp.Controllers
             }
             ViewBag.CandidateId = new SelectList(db.Candidate, "CandidateId", "Name", surveyAnswer.CandidateId);
             ViewBag.SurveyId = new SelectList(db.Surveys, "SurveyId", "SurveyName", surveyAnswer.SurveyId);
-            ViewBag.UQuestionId = new SelectList(db.UserQuestion, "UQuestionId", "Question", surveyAnswer.UQuestionId);
             return View(surveyAnswer);
         }
 
@@ -98,7 +95,6 @@ namespace SurveyApp.Controllers
             }
             ViewBag.CandidateId = new SelectList(db.Candidate, "CandidateId", "Name", surveyAnswer.CandidateId);
             ViewBag.SurveyId = new SelectList(db.Surveys, "SurveyId", "SurveyName", surveyAnswer.SurveyId);
-            ViewBag.UQuestionId = new SelectList(db.UserQuestion, "UQuestionId", "Question", surveyAnswer.UQuestionId);
             return View(surveyAnswer);
         }
 
