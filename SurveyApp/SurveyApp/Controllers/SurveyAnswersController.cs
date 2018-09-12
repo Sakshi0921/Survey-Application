@@ -17,7 +17,7 @@ namespace SurveyApp.Controllers
         // GET: SurveyAnswers
         public ActionResult Index()
         {
-            var surveyAnswer = db.SurveyAnswer.Include(s => s.Candidate).Include(s => s.Survey);
+            var surveyAnswer = db.SurveyAnswer.Include(s => s.Candidate).Include(s => s.Survey).Include(s => s.userQuestion);
             return View(surveyAnswer.ToList());
         }
 
@@ -41,6 +41,7 @@ namespace SurveyApp.Controllers
         {
             ViewBag.CandidateId = new SelectList(db.Candidate, "CandidateId", "Name");
             ViewBag.SurveyId = new SelectList(db.Surveys, "SurveyId", "SurveyName");
+            ViewBag.UQuestionId = new SelectList(db.UserQuestion, "UQuestionId", "Question");
             return View();
         }
 
@@ -49,7 +50,7 @@ namespace SurveyApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SurveyId,QuestionId,CandidateId,Answer")] SurveyAnswer surveyAnswer)
+        public ActionResult Create([Bind(Include = "SurveyId,UQuestionId,CandidateId,SurveyQuesNo,Answer")] SurveyAnswer surveyAnswer)
         {
             if (ModelState.IsValid)
             {
@@ -60,6 +61,7 @@ namespace SurveyApp.Controllers
 
             ViewBag.CandidateId = new SelectList(db.Candidate, "CandidateId", "Name", surveyAnswer.CandidateId);
             ViewBag.SurveyId = new SelectList(db.Surveys, "SurveyId", "SurveyName", surveyAnswer.SurveyId);
+            ViewBag.UQuestionId = new SelectList(db.UserQuestion, "UQuestionId", "Question", surveyAnswer.UQuestionId);
             return View(surveyAnswer);
         }
 
@@ -77,6 +79,7 @@ namespace SurveyApp.Controllers
             }
             ViewBag.CandidateId = new SelectList(db.Candidate, "CandidateId", "Name", surveyAnswer.CandidateId);
             ViewBag.SurveyId = new SelectList(db.Surveys, "SurveyId", "SurveyName", surveyAnswer.SurveyId);
+            ViewBag.UQuestionId = new SelectList(db.UserQuestion, "UQuestionId", "Question", surveyAnswer.UQuestionId);
             return View(surveyAnswer);
         }
 
@@ -85,7 +88,7 @@ namespace SurveyApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SurveyId,QuestionId,CandidateId,Answer")] SurveyAnswer surveyAnswer)
+        public ActionResult Edit([Bind(Include = "SurveyId,UQuestionId,CandidateId,SurveyQuesNo,Answer")] SurveyAnswer surveyAnswer)
         {
             if (ModelState.IsValid)
             {
@@ -95,6 +98,7 @@ namespace SurveyApp.Controllers
             }
             ViewBag.CandidateId = new SelectList(db.Candidate, "CandidateId", "Name", surveyAnswer.CandidateId);
             ViewBag.SurveyId = new SelectList(db.Surveys, "SurveyId", "SurveyName", surveyAnswer.SurveyId);
+            ViewBag.UQuestionId = new SelectList(db.UserQuestion, "UQuestionId", "Question", surveyAnswer.UQuestionId);
             return View(surveyAnswer);
         }
 

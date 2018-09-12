@@ -19,7 +19,7 @@ namespace SurveyApp.Models
         [Column(Order = 2)]
         public int CandidateId { get; set; }
 
-        [ForeignKey("UserQuestion")]
+      
         public int SurveyQuesNo { get; set; }
 
         public string Answer { get; set; }
