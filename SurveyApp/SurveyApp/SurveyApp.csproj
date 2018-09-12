@@ -202,6 +202,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="Controllers\QuestionBanksController.cs" />
+    <Compile Include="Controllers\SurveyAnswersController.cs" />
     <Compile Include="Controllers\SurveyCandidatesController.cs" />
     <Compile Include="Controllers\SurveysController.cs" />
     <Compile Include="Controllers\UserQuestionsController.cs" />
@@ -368,6 +369,11 @@
     <Content Include="Views\SurveyCandidates\Details.cshtml" />
     <Content Include="Views\SurveyCandidates\Edit.cshtml" />
     <Content Include="Views\SurveyCandidates\Index.cshtml" />
+    <Content Include="Views\SurveyAnswers\Create.cshtml" />
+    <Content Include="Views\SurveyAnswers\Delete.cshtml" />
+    <Content Include="Views\SurveyAnswers\Details.cshtml" />
+    <Content Include="Views\SurveyAnswers\Edit.cshtml" />
+    <Content Include="Views\SurveyAnswers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -41,7 +41,7 @@ namespace SurveyApp.Models
         public virtual DbSet<SurveyAnswer> SurveyAnswer { get; set; }
        // public virtual DbSet<SurveyQuestion> SurveyQuestion { get; set; }
         public virtual DbSet<SurveyCandidate> SurveyCandidate { get; set; }
-        //public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+       
 
         public static ApplicationDbContext Create()
         {
