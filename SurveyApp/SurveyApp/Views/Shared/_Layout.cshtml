@@ -77,7 +77,11 @@
 
                     @if (User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("Survey Questions", "Create", "UserQuestion", routeValues: null, htmlAttributes: new { id = "createUserQuestion" })</li>
+                        <li>@Html.ActionLink("Survey Questions", "Create", "UserQuestions", routeValues: null, htmlAttributes: new { id = "createUserQuestion" })</li>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Survey Candidates", "Index", "SurveyCandidates", routeValues: null, htmlAttributes: new { id = "surveyCandidates" })</li>
                     }
 
                 </ul>

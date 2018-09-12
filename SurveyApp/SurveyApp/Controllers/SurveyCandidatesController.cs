@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using SurveyApp.Models;
 
-namespace SurveyApp.Content.Controllers
+namespace SurveyApp.Controllers
 {
     public class SurveyCandidatesController : Controller
     {
@@ -22,17 +22,20 @@ namespace SurveyApp.Content.Controllers
         }
 
         // GET: SurveyCandidates/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int SurveyId, int CandidateId)
         {
-            if (id == null)
+            if (SurveyId == 0 || CandidateId == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SurveyCandidate surveyCandidate = db.SurveyCandidate.Find(id);
+            SurveyCandidate surveyCandidate = db.SurveyCandidate.Find(SurveyId, CandidateId);
+           
+
             if (surveyCandidate == null)
             {
                 return HttpNotFound();
             }
+          
             return View(surveyCandidate);
         }
 
@@ -64,13 +67,14 @@ namespace SurveyApp.Content.Controllers
         }
 
         // GET: SurveyCandidates/Edit/5
-        public ActionResult Edit(int? id)
+        //way to handle composite primary key
+        public ActionResult Edit(int SurveyId, int CandidateId)
         {
-            if (id == null)
+            if (SurveyId == 0|| CandidateId==0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SurveyCandidate surveyCandidate = db.SurveyCandidate.Find(id);
+            SurveyCandidate surveyCandidate = db.SurveyCandidate.Find(SurveyId, CandidateId);
             if (surveyCandidate == null)
             {
                 return HttpNotFound();
@@ -99,13 +103,13 @@ namespace SurveyApp.Content.Controllers
         }
 
         // GET: SurveyCandidates/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int SurveyId, int CandidateId)
         {
-            if (id == null)
+            if (SurveyId == 0 || CandidateId == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SurveyCandidate surveyCandidate = db.SurveyCandidate.Find(id);
+            SurveyCandidate surveyCandidate = db.SurveyCandidate.Find(SurveyId,CandidateId);
             if (surveyCandidate == null)
             {
                 return HttpNotFound();
@@ -116,9 +120,9 @@ namespace SurveyApp.Content.Controllers
         // POST: SurveyCandidates/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int SurveyId, int CandidateId)
         {
-            SurveyCandidate surveyCandidate = db.SurveyCandidate.Find(id);
+            SurveyCandidate surveyCandidate = db.SurveyCandidate.Find(SurveyId, CandidateId);
             db.SurveyCandidate.Remove(surveyCandidate);
             db.SaveChanges();
             return RedirectToAction("Index");

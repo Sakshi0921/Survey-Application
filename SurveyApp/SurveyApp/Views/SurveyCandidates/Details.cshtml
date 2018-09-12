@@ -26,9 +26,29 @@
             @Html.DisplayFor(model => model.Survey.SurveyName)
         </dd>
 
+        <dt>
+            @Html.Label("Survey status:")
+        </dt>
+
+        <dd>
+            @if (Model.SurveyQuesNo == 0)
+            {
+                @Html.Label("Not started")
+            }
+            @if (Model.SurveyQuesNo > 0)
+            {
+                @Html.Label("Completed till Question:" + Model.SurveyQuesNo)
+              @*  @Html.DisplayFor(model => model.SurveyQuesNo) *@
+            }
+
+        </dd>
+
+
+        
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+   @* @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) | *@
     @Html.ActionLink("Back to List", "Index")
 </p>

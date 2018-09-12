@@ -10,11 +10,11 @@ namespace SurveyApp.Models
     public class SurveyCandidate
     {
         [Key]
-        [Column(Order = 1)]
+        [Column(Order = 0)]
         public int SurveyId { get; set; }
 
         [Key]
-        [Column(Order = 2)]
+        [Column(Order = 1)]
         public int CandidateId { get; set; }
 
         public int SurveyQuesNo { get; set; }

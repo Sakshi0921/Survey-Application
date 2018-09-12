@@ -17,6 +17,10 @@
         <th>
             @Html.DisplayNameFor(model => model.Survey.SurveyName)
         </th>
+        @* SurveyQuesNo to be added during taking survey only
+            <th>
+            @Html.DisplayNameFor(model => model.SurveyQuesNo)
+        </th>*@
         <th></th>
     </tr>
 
@@ -28,10 +32,15 @@
         <td>
             @Html.DisplayFor(modelItem => item.Survey.SurveyName)
         </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.SurveyQuesNo)
+        </td>*@
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @* We don't want to edit Survey Question
+            @Html.ActionLink("Edit", "Edit", new { SurveyId= item.SurveyId, CandidateId=item.CandidateId }) | @* way to handle composite primary key*@ 
+
+            @Html.ActionLink("Details", "Details", new { SurveyId = item.SurveyId, CandidateId = item.CandidateId }) |
+            @Html.ActionLink("Delete", "Delete", new { SurveyId = item.SurveyId, CandidateId = item.CandidateId })
         </td>
     </tr>
 }

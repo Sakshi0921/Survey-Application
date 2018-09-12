@@ -348,11 +348,6 @@
     <Content Include="Views\Surveys\Details.cshtml" />
     <Content Include="Views\Surveys\Edit.cshtml" />
     <Content Include="Views\Surveys\Index.cshtml" />
-    <Content Include="Views\SurveyCandidates\Create.cshtml" />
-    <Content Include="Views\SurveyCandidates\Delete.cshtml" />
-    <Content Include="Views\SurveyCandidates\Details.cshtml" />
-    <Content Include="Views\SurveyCandidates\Edit.cshtml" />
-    <Content Include="Views\SurveyCandidates\Index.cshtml" />
     <Content Include="Views\Organizations\Create.cshtml" />
     <Content Include="Views\Organizations\Delete.cshtml" />
     <Content Include="Views\Organizations\Details.cshtml" />
@@ -368,6 +363,11 @@
     <Content Include="Views\Candidates\Details.cshtml" />
     <Content Include="Views\Candidates\Edit.cshtml" />
     <Content Include="Views\Candidates\Index.cshtml" />
+    <Content Include="Views\SurveyCandidates\Create.cshtml" />
+    <Content Include="Views\SurveyCandidates\Delete.cshtml" />
+    <Content Include="Views\SurveyCandidates\Details.cshtml" />
+    <Content Include="Views\SurveyCandidates\Edit.cshtml" />
+    <Content Include="Views\SurveyCandidates\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

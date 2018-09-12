@@ -10,7 +10,7 @@ using SurveyApp.Models;
 
 namespace SurveyApp.Controllers
 {
-    
+    [Authorize(Roles ="Admin")]
        public class UserQuestionsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
