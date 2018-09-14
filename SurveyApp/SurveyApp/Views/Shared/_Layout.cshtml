@@ -84,6 +84,11 @@
                         <li>@Html.ActionLink("Survey Candidates", "Index", "SurveyCandidates", routeValues: null, htmlAttributes: new { id = "surveyCandidates" })</li>
                     }
 
+                    @if (User.IsInRole("Candidate"))
+                    {
+                        <li>@Html.ActionLink("Survey List", "SurveyList", "Surveys", routeValues: null, htmlAttributes: new { id = "createSurveysLink" })</li>
+                    }
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

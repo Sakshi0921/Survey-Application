@@ -6,22 +6,34 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using SurveyApp.Models;
 
 namespace SurveyApp.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    
     public class SurveysController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [Authorize(Roles = "Candidate")]
+        public ActionResult SurveyList()
+        {
+            string useremail = User.Identity.GetUserName();
+            var org = db.Candidate.Select(c => c.Email == useremail);
+            var surveys = db.Surveys.Include(s => s.Organization);
+            return View(surveys.ToList());
+        }
+
+
+        [Authorize(Roles = "Admin")]
         // GET: Surveys
         public ActionResult Index()
         {
             var surveys = db.Surveys.Include(s => s.Organization);
             return View(surveys.ToList());
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: Surveys/Details/5
         public ActionResult Details(int? id)
         {
@@ -36,7 +48,7 @@ namespace SurveyApp.Controllers
             }
             return View(survey);
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: Surveys/Create
         public ActionResult Create()
         {
@@ -47,6 +59,8 @@ namespace SurveyApp.Controllers
         // POST: Surveys/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "SurveyId,StartDate,EndDate,SurveyDesc,OrgId")] Survey survey)
@@ -61,6 +75,9 @@ namespace SurveyApp.Controllers
             ViewBag.OrgId = new SelectList(db.Organization, "OrgId", "OrgName", survey.OrgId);
             return View(survey);
         }
+
+
+        [Authorize(Roles = "Admin")]
 
         // GET: Surveys/Edit/5
         public ActionResult Edit(int? id)
@@ -77,6 +94,9 @@ namespace SurveyApp.Controllers
             ViewBag.OrgId = new SelectList(db.Organization, "OrgId", "OrgName", survey.OrgId);
             return View(survey);
         }
+
+
+        [Authorize(Roles = "Admin")]
 
         // POST: Surveys/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -95,6 +115,7 @@ namespace SurveyApp.Controllers
             return View(survey);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Surveys/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -110,6 +131,8 @@ namespace SurveyApp.Controllers
             return View(survey);
         }
 
+        [Authorize(Roles = "Admin")]
+
         // POST: Surveys/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -120,7 +143,7 @@ namespace SurveyApp.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        [Authorize(Roles = "Admin")]
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<SurveyApp.Models.Survey>
+
+@{
+    ViewBag.Title = "SurveyList";
+}
+
+<h2>SurveyList</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Organization.OrgName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SurveyName)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Organization.OrgName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SurveyName)
+        </td>
+        <td>  @Html.ActionLink("Take Survey", "TakeSurvey", "UserQuestions",  new { sid = item.SurveyId }, null) </td>
+          
+            
+        
+    </tr>
+}
+
+</table>
