@@ -169,13 +169,9 @@ namespace SurveyApp.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             using (var context = new ApplicationDbContext())
-            {
-                
+            {  
                 if (ModelState.IsValid)
                 {
-
-                    
-
                     if (UserManager.FindByEmail(model.Email) != null)
                     {
                         ModelState.AddModelError(string.Empty, "The entered Email already exists...Enter a vaild one");
@@ -191,10 +187,8 @@ namespace SurveyApp.Controllers
                             ViewBag.OrgList = new SelectList(db.Organization.Select(x => new { Value = x.OrgId, Text = x.OrgName }), "Value", "Text");
                         }
 
-
                         return View(model);
                     }
-
                     var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                     var result = await UserManager.CreateAsync(user, model.Password);
                     //Code to add admin only by superadmin
@@ -224,6 +218,86 @@ namespace SurveyApp.Controllers
                 return View(model);
             }
         }
+
+        [HttpGet]
+        [Authorize(Roles ="Admin")]
+        [ActionName("Register")]
+        public ActionResult Register_Candidate()
+        {
+            var chk = from n in db.Organization select n;
+            var i = chk.Count();
+            if (i == 0)
+            {
+
+                ViewBag.OrgList = null;
+            }
+            else
+            {
+                ViewBag.OrgList = new SelectList(db.Organization.Select(x => new { Value = x.OrgId, Text = x.OrgName }), "Value", "Text");
+            }
+
+
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ActionName("Register")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterCandidate(RegisterViewModel model)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                if (ModelState.IsValid)
+                {
+                    if (UserManager.FindByEmail(model.Email) != null)
+                    {
+                        ModelState.AddModelError(string.Empty, "The entered Email already exists...Enter a vaild one");
+
+                        var i = (from n in db.Organization select n).Count();
+                        if (i == 0)
+                        {
+
+                            ViewBag.OrgList = null;
+                        }
+                        else
+                        {
+                            ViewBag.OrgList = new SelectList(db.Organization.Select(x => new { Value = x.OrgId, Text = x.OrgName }), "Value", "Text");
+                        }
+
+                        return View(model);
+                    }
+                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    //Code to add admin only by superadmin
+
+                    var roleStore = new RoleStore<IdentityRole>(context);
+                    var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                    var userStore = new UserStore<ApplicationUser>(context);
+                    var userManager = new UserManager<ApplicationUser>(userStore);
+                    userManager.AddToRole(user.Id, "Candidate");
+
+                    if (result.Succeeded)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    AddErrors(result);
+                }
+
+                // If we got this far, something failed, redisplay form
+                return View(model);
+            }
+        }
+
 
         //
         // GET: /Account/ConfirmEmail

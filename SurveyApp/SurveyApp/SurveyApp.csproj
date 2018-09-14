@@ -374,6 +374,7 @@
     <Content Include="Views\SurveyAnswers\Details.cshtml" />
     <Content Include="Views\SurveyAnswers\Edit.cshtml" />
     <Content Include="Views\SurveyAnswers\Index.cshtml" />
+    <Content Include="Views\UserQuestions\TakeSurvey.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -10,11 +10,11 @@ using SurveyApp.Models;
 
 namespace SurveyApp.Controllers
 {
-    [Authorize(Roles ="Admin")]
+   
        public class UserQuestionsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        [Authorize(Roles = "Admin")]
         // GET: UserQuestions
         public ActionResult Index()
         {
@@ -22,6 +22,7 @@ namespace SurveyApp.Controllers
             return View(userQuestion.ToList());
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: UserQuestions/Details/5
         public ActionResult Details(int? id)
         {
@@ -36,7 +37,7 @@ namespace SurveyApp.Controllers
             }
             return View(userQuestion);
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: UserQuestions/Create
         public ActionResult Create()
         {
@@ -74,6 +75,13 @@ namespace SurveyApp.Controllers
         }
 
 
+        public ActionResult TakeSurvey()
+        {
+           
+            return View();
+        }
+
+
 
 
         // GET: UserQuestions/Edit/5
@@ -108,6 +116,8 @@ namespace SurveyApp.Controllers
             ViewBag.SurveyId = new SelectList(db.Surveys, "SurveyId", "SurveyName", userQuestion.SurveyId);
             return View(userQuestion);
         }
+
+        [Authorize(Roles = "Admin")]
 
         // GET: UserQuestions/Delete/5
         public ActionResult Delete(int? id)
