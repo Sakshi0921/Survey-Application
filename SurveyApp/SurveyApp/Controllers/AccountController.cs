@@ -141,7 +141,7 @@ namespace SurveyApp.Controllers
         // GET: /Account/Register
        // [AllowAnonymous]
 
-        [Authorize(Roles ="SuperAdmin")]
+        [Authorize(Roles ="SuperAdmin, Admin")]
         public ActionResult Register()
         {
             var chk = from n in db.Organization select n;
@@ -164,7 +164,7 @@ namespace SurveyApp.Controllers
         // POST: /Account/Register
         [HttpPost]
       // [AllowAnonymous]
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "SuperAdmin, Admin")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
@@ -198,7 +198,28 @@ namespace SurveyApp.Controllers
 
                     var userStore = new UserStore<ApplicationUser>(context);
                     var userManager = new UserManager<ApplicationUser>(userStore);
+
+                    //To get role of current user
+
+                    var usertype = User.Identity.GetUserId();
+                    string roletype= (userManager.GetRoles(usertype))[0];
+
+
+                    if(roletype=="SuperAdmin")
                     userManager.AddToRole(user.Id, "Admin");
+
+                    if (roletype == "Admin")
+                    {
+                        userManager.AddToRole(user.Id, "Candidate");
+                        Candidate candidate = new Candidate();
+                        candidate.Email = model.Email;
+                        candidate.OrgId = model.OrgId;
+                        db.Candidate.Add(candidate);
+                        db.SaveChanges();
+                    }
+                     
+
+
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -219,85 +240,7 @@ namespace SurveyApp.Controllers
             }
         }
 
-        [HttpGet]
-        [Authorize(Roles ="Admin")]
-        [ActionName("Register")]
-        public ActionResult Register_Candidate()
-        {
-            var chk = from n in db.Organization select n;
-            var i = chk.Count();
-            if (i == 0)
-            {
-
-                ViewBag.OrgList = null;
-            }
-            else
-            {
-                ViewBag.OrgList = new SelectList(db.Organization.Select(x => new { Value = x.OrgId, Text = x.OrgName }), "Value", "Text");
-            }
-
-
-            return View();
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        [ActionName("Register")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> RegisterCandidate(RegisterViewModel model)
-        {
-            using (var context = new ApplicationDbContext())
-            {
-                if (ModelState.IsValid)
-                {
-                    if (UserManager.FindByEmail(model.Email) != null)
-                    {
-                        ModelState.AddModelError(string.Empty, "The entered Email already exists...Enter a vaild one");
-
-                        var i = (from n in db.Organization select n).Count();
-                        if (i == 0)
-                        {
-
-                            ViewBag.OrgList = null;
-                        }
-                        else
-                        {
-                            ViewBag.OrgList = new SelectList(db.Organization.Select(x => new { Value = x.OrgId, Text = x.OrgName }), "Value", "Text");
-                        }
-
-                        return View(model);
-                    }
-                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                    var result = await UserManager.CreateAsync(user, model.Password);
-                    //Code to add admin only by superadmin
-
-                    var roleStore = new RoleStore<IdentityRole>(context);
-                    var roleManager = new RoleManager<IdentityRole>(roleStore);
-
-                    var userStore = new UserStore<ApplicationUser>(context);
-                    var userManager = new UserManager<ApplicationUser>(userStore);
-                    userManager.AddToRole(user.Id, "Candidate");
-
-                    if (result.Succeeded)
-                    {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                        // Send an email with this link
-                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                        return RedirectToAction("Index", "Home");
-                    }
-                    AddErrors(result);
-                }
-
-                // If we got this far, something failed, redisplay form
-                return View(model);
-            }
-        }
-
+       
 
         //
         // GET: /Account/ConfirmEmail

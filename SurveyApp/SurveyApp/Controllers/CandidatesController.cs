@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using SurveyApp.Models;
 
 namespace SurveyApp.Controllers
@@ -13,6 +14,9 @@ namespace SurveyApp.Controllers
     public class CandidatesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+
+
 
         // GET: Candidates
         public ActionResult Index()

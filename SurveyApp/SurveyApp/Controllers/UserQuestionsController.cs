@@ -20,7 +20,18 @@ namespace SurveyApp.Controllers
         {
             var userQuestion = db.UserQuestion.Include(u => u.survey);
             return View(userQuestion.ToList());
+
         }
+            //Method to take survey by the candidate
+
+        [HttpGet]
+        public ActionResult SurveyQuestions(int sId)
+        {
+            List<UserQuestion> uq = db.UserQuestion.Where(u => u.SurveyId == sId).ToList();
+            return View(uq);
+        }
+
+
 
         [Authorize(Roles = "Admin")]
         // GET: UserQuestions/Details/5
@@ -80,13 +91,6 @@ namespace SurveyApp.Controllers
 
 
             return RedirectToAction("Index");
-        }
-
-
-        public ActionResult TakeSurvey()
-        {
-           
-            return View();
         }
 
 

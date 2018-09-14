@@ -63,7 +63,7 @@
 
                     @if (User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("Candidate", "Index", "Candidates", routeValues: null, htmlAttributes: new { id = "createCandidatesLink" })</li>
+                        <li>@Html.ActionLink("Add Candidate", "Register", "Account", routeValues: null, htmlAttributes: new { id = "createCandidatesLink" })</li>
                     }
 
                     @*Only admin can add survey*@
@@ -82,6 +82,11 @@
                     @if (User.IsInRole("Admin"))
                     {
                         <li>@Html.ActionLink("Survey Candidates", "Index", "SurveyCandidates", routeValues: null, htmlAttributes: new { id = "surveyCandidates" })</li>
+                    }
+
+                    @if (User.IsInRole("Candidate"))
+                    {
+                        <li>@Html.ActionLink("Survey List", "SurveyList", "Surveys", routeValues: null, htmlAttributes: new { id = "createSurveysLink" })</li>
                     }
 
                 </ul>
