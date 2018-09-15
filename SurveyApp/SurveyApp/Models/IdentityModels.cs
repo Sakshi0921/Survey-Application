@@ -50,6 +50,7 @@ namespace SurveyApp.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            //modelBuilder.Entity<UserQuestion>().MapToStoredProcedures();  trying to use stored procedure
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
         }
     }

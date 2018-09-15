@@ -74,19 +74,27 @@ namespace SurveyApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public ActionResult Create(FormCollection formCollection)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             UserQuestion userQuestion = new UserQuestion();
             userQuestion.SurveyId = Int32.Parse(formCollection["SurveyId"]);
-
+            int sqno;
             var qCount = (formCollection.Count - 1)/2;
-            for (int i = 1; i <= qCount; i++)
+            if (!db.UserQuestion.Any(u => u.SurveyId == userQuestion.SurveyId))
             {
-                userQuestion.SurveyQuesNo = i;
+                sqno = 0;
+            }
+            else
+              sqno = (from s in db.UserQuestion
+                                             where s.SurveyId == userQuestion.SurveyId
+                                             select s.SurveyQuesNo).Max() ;
+            for (int i = 1; i <= qCount; i++)
+            {           
                 userQuestion.Question = formCollection["Question" + i];
                 userQuestion.Type = formCollection["type" + i];
+                userQuestion.SurveyQuesNo = sqno + i;
                 db.UserQuestion.Add(userQuestion);//Error handling in both the lines needed
                 db.SaveChanges();
             }
