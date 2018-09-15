@@ -376,6 +376,7 @@
     <Content Include="Views\SurveyAnswers\Index.cshtml" />
     <Content Include="Views\Surveys\SurveyList.cshtml" />
     <Content Include="Views\UserQuestions\SurveyQuestions.cshtml" />
+    <Content Include="Views\UserQuestions\TakeSurvey.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

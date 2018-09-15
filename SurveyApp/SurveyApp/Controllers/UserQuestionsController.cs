@@ -22,12 +22,22 @@ namespace SurveyApp.Controllers
             return View(userQuestion.ToList());
 
         }
-            //Method to take survey by the candidate
+            
 
         [HttpGet]
         public ActionResult SurveyQuestions(int sId)
         {
             List<UserQuestion> uq = db.UserQuestion.Where(u => u.SurveyId == sId).ToList();
+            return View(uq);
+        }
+
+        //Method to take survey by the candidate
+
+        public ActionResult TakeSurvey(int sId)
+        {
+            List<UserQuestion> uq = db.UserQuestion.Where(u => u.SurveyId == sId).ToList();
+            ViewBag.Name = (from s in db.Surveys where s.SurveyId == sId select s.SurveyName);
+            ViewBag.Surveyid=sId;
             return View(uq);
         }
 
