@@ -18,13 +18,15 @@
     <br />
 
 </head>
-<body >
+<body>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
 
 
     @using (Html.BeginForm())
     {
+        @Html.Hidden("sId", sId)
+
         foreach (var item in Model)
         {
             i++;
@@ -63,7 +65,7 @@
             var para = document.createElement("p");
             var x = document.createElement("input");
             x.setAttribute("type", "text");
-            x.setAttribute("name", "Question");
+            x.setAttribute("name", "Ans"+id);
             para.appendChild(x);
             var element = document.getElementById("autogenerate-"+id);
             element.appendChild(para);
@@ -72,7 +74,7 @@
             var div = document.querySelector("#autogenerate-"+id);
             frag = document.createDocumentFragment()
             select = document.createElement("select");
-            select.setAttribute("name", "type")
+            select.setAttribute("name", "Ans" + id)
             select.options.add(new Option("Positive", "Positive", true, true));
             select.options.add(new Option("Negative", "Negative"));
             frag.appendChild(select);
@@ -84,7 +86,7 @@
             var div = document.querySelector("#autogenerate-"+id);
             frag = document.createDocumentFragment()
             select = document.createElement("select");
-            select.setAttribute("name", "type")
+            select.setAttribute("name", "Ans" + id)
             select.options.add(new Option("1", "1", true, true));
             select.options.add(new Option("2", "2"));
             select.options.add(new Option("3", "3"));

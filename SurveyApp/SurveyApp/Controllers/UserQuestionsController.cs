@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;   
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using SurveyApp.Models;
 
 namespace SurveyApp.Controllers
@@ -32,9 +33,12 @@ namespace SurveyApp.Controllers
         }
 
         //Method to take survey by the candidate
-
+        [HttpGet]
+        [Authorize(Roles ="Candidate")]
         public ActionResult TakeSurvey(int sId)
         {
+            if (sId == 0)
+                return RedirectToAction("SurveyList", "Surveys");
             List<UserQuestion> uq = db.UserQuestion.Where(u => u.SurveyId == sId).ToList();
             ViewBag.Name = (from s in db.Surveys where s.SurveyId == sId select s.SurveyName);
             ViewBag.Surveyid=sId;
@@ -42,6 +46,36 @@ namespace SurveyApp.Controllers
         }
 
 
+        [HttpPost]
+        [Authorize(Roles = "Candidate")]
+        public ActionResult TakeSurvey(FormCollection  form)
+        {
+            SurveyAnswer surveyAnswer = new SurveyAnswer();
+            var count = (form.Count)-1;
+            var SurveyId = Int32.Parse(form["sId"]);
+
+            //To know which user is logged in
+            var usermail = User.Identity.GetUserName();
+
+            var cId= (from  c in db.Candidate where c.Email==usermail select c.CandidateId).ToList();
+            List<UserQuestion> uq = db.UserQuestion.Where(u => u.SurveyId == SurveyId).ToList();
+            var cid = cId.ElementAt(0) ;
+
+            for (int i=1; i<=count; i++)
+            {
+                surveyAnswer.SurveyId = SurveyId;
+                surveyAnswer.CandidateId = cid;
+                surveyAnswer.SurveyQuesNo = i;
+                surveyAnswer.UQuestionId = uq.ElementAt(i-1).UQuestionId;
+                surveyAnswer.Answer = form["Ans" + i];
+                db.SurveyAnswer.Add(surveyAnswer);
+                db.SaveChanges();
+                
+
+                
+            }
+            return RedirectToAction("SurveyList", "Surveys");
+        }
 
         [Authorize(Roles = "Admin")]
         // GET: UserQuestions/Details/5
