@@ -11,8 +11,7 @@ using SurveyApp.Models;
 
 namespace SurveyApp.Controllers
 {
-   
-       public class UserQuestionsController : Controller
+    public class UserQuestionsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         [Authorize(Roles = "Admin")]
@@ -21,7 +20,6 @@ namespace SurveyApp.Controllers
         {
             var userQuestion = db.UserQuestion.Include(u => u.survey);
             return View(userQuestion.ToList());
-
         }
             
 
@@ -50,9 +48,17 @@ namespace SurveyApp.Controllers
         [Authorize(Roles = "Candidate")]
         public ActionResult TakeSurvey(FormCollection  form)
         {
-            SurveyAnswer surveyAnswer = new SurveyAnswer();
+            //SurveyAnswer surveyAnswer[] = new SurveyAnswer();
+            List<SurveyAnswer> surveyAnswer = new List<SurveyAnswer>();
+            
             var count = (form.Count)-1;
             var SurveyId = Int32.Parse(form["sId"]);
+
+            for (int i = 0; i < count; i++)
+            {
+                SurveyAnswer s = new SurveyAnswer();
+                surveyAnswer.Add(s);
+            }
 
             //To know which user is logged in
             var usermail = User.Identity.GetUserName();
@@ -63,12 +69,12 @@ namespace SurveyApp.Controllers
 
             for (int i=1; i<=count; i++)
             {
-                surveyAnswer.SurveyId = SurveyId;
-                surveyAnswer.CandidateId = cid;
-                surveyAnswer.SurveyQuesNo = i;
-                surveyAnswer.UQuestionId = uq.ElementAt(i-1).UQuestionId;
-                surveyAnswer.Answer = form["Ans" + i];
-                db.SurveyAnswer.Add(surveyAnswer);
+                surveyAnswer.ElementAt(i-1).SurveyId = SurveyId;
+                surveyAnswer.ElementAt(i - 1).CandidateId = cid;
+                surveyAnswer.ElementAt(i - 1).SurveyQuesNo = i;
+                surveyAnswer.ElementAt(i - 1).UQuestionId = uq.ElementAt(i-1).UQuestionId;
+                surveyAnswer.ElementAt(i - 1).Answer = form["Ans" + i];
+                db.SurveyAnswer.Add(surveyAnswer.ElementAt(i-1));
                 db.SaveChanges();
                 
 
