@@ -11,7 +11,7 @@
 
 <html>
 <head>
-   
+
     <title>TakeSurvey</title>
 
 </head>
@@ -43,7 +43,8 @@
         <br />
         @Html.ActionLink("Back to List", "SurveyList", "Surveys")
     </div>
-    <script>
+</body>
+<script>
         var rep = @i;
         while (rep >0) {
             determineType(rep);
@@ -79,7 +80,7 @@
         }
         function Rating(id) {
             // it should create a 1-5 rating drop down list
-            alert("The heigher the number the better and vice versa.")
+            //alert("The heigher the number the better and vice versa.")
             var div = document.querySelector("#autogenerate-"+id);
             frag = document.createDocumentFragment()
             select = document.createElement("select");
@@ -92,6 +93,5 @@
             frag.appendChild(select);
             div.appendChild(frag)
         }
-    </script>
-</body>
+</script>
 </html>

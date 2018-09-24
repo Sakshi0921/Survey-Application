@@ -25,6 +25,16 @@ namespace SurveyApp
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            //Kendo Script Bundle
+            bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
+                      "~/Scripts/js/kendo.all.*",
+                      "~/Scripts/js/kendo.aspnetmvc.*"));
+
+            //kendo Style Bundle
+            bundles.Add(new StyleBundle("~/Content/kendo").Include(
+                      "~/Content/styles/kendo.common.*",
+                      "~/Content/styles/kendo.default.*"));   
         }
     }
 }

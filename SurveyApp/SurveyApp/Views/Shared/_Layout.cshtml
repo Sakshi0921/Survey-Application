@@ -4,15 +4,21 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - SURVECTION</title>
-    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/css")
 
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js" type="text/javascript"></script>
-
-
+    <link href="https://kendo.cdn.telerik.com/2018.3.911/styles/kendo.common.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2018.3.911/styles/kendo.mobile.all.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://kendo.cdn.telerik.com/2018.3.911/styles/kendo.default.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://kendo.cdn.telerik.com/2018.3.911/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2018.3.911/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2018.3.911/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2018.3.911/js/kendo.aspnetmvc.min.js"></script>
+    <script src="@Url.Content("~/Scripts/js/kendo.modernizr.custom.js")"></script>
+    <script src="https://kendo.cdn.telerik.com/2018.3.911/js/jszip.min.js"></script>
+    <script src="~/Scripts/js/cultures/kendo.culture.es-MX.min.js"></script>
+    <link href="https://kendo.cdn.telerik.com/2018.3.911/styles/kendo.moonlight.min.css" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
@@ -98,11 +104,11 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Survey App</p>
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
+    @*Scripts.Render("~/bundles/jquery")*@
     @Scripts.Render("~/bundles/bootstrap")
 
     @RenderSection("scripts", required: false)

@@ -9,13 +9,8 @@
 
 
 <Button onclick="showUQs()">Add Custom Questions</Button>
-@* <Button onclick="hideUQs()">Clear Custom Questions</Button> *@
 <h3>Click the button to add Custon Questions:</h3>
-<div id=UserDefined style="display: none;">
-    <button id="btAdd" onclick="AddElement()">+</button>
-    <br>Please add your question in the textboxes along with the types drom dropdown list.
 
-</div>
 
 @using (Html.BeginForm())
 {
@@ -36,16 +31,10 @@
 
     </div>
     <label>UserDefined</label>
-    <p>
-
-
+    <P>
         <!--THE CONTAINER TO HOLD THE DYNAMICALLY CREATED ELEMENTS.-->
         <div id="repeat"></div>
-
-
-    </p>
-
-
+    </P>
     @*<label>PreDefined</label>
         <p>
             <Button onclick="showPQs()">Add Pre-defined Questions</Button>
@@ -56,7 +45,21 @@
         </p>*@
 
 
+
+    <div id=UserDefined style="display: none;">
+        <button id="btAdd" onclick="AddElement();return false;">+</button>
+        <br>Please add your question in the textboxes along with the types drom dropdown list.
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+
     <script>
+
         function showUQs() {
             var div = document.getElementById("UserDefined");
             div.style.display = "block"
@@ -74,27 +77,17 @@
             div.style.display = "none";
         }
 
-    </script>
-
-
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-    </div>
-
-    <script>
         function AddElement() {
             this.Counter = ++this.Counter || 1;    // COUNTER TO SET ELEMENT IDs.
             var para = document.createElement("p");
             var x = document.createElement("input");
             x.setAttribute("type", "text");
+            x.setAttribute("class", "btn dropdown - toggle");
             x.setAttribute("name", "Question" + this.Counter)
             para.appendChild(x);
             //to create drop down list
-            var div = document.querySelector("#repeat"),
-                frag = document.createDocumentFragment(),
+            var div = document.querySelector("#repeat");
+            frag = document.createDocumentFragment();
 
             select = document.createElement("select");
             select.setAttribute("name", "type" + this.Counter);
