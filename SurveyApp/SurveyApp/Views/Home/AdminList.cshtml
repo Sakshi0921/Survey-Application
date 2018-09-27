@@ -1,0 +1,65 @@
+﻿
+@{
+                /**/
+
+                var adminlist = ViewBag.AdminList;
+}
+
+<!DOCTYPE html>
+<link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+<html>
+<head>
+
+    <title>AdminList</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Register", "Account")
+    </p>
+
+    <table class="table" id="admintable">
+        <tr>
+            <th>
+                @Html.DisplayName("Email")
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>*@
+            <th>
+                @Html.DisplayName("Organization")
+            </th>
+
+        </tr>
+
+        @foreach (var item in adminlist)
+        {
+            <tr>
+                <td>
+                    @item.Email
+                </td>
+
+                <td>
+                    @item.OrgName
+                </td>
+            </tr>
+
+        }
+
+    </table>
+
+</body>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('admintable').DataTable();
+    });
+
+</script>
+
+
+
