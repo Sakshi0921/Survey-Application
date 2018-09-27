@@ -63,7 +63,7 @@ namespace SurveyApp.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SurveyId,StartDate,EndDate,SurveyDesc,OrgId")] Survey survey)
+        public ActionResult Create([Bind(Include = "SurveyId,SurveyName,StartDate,EndDate,SurveyDesc,OrgId")] Survey survey)
         {
             if (ModelState.IsValid)
             {
