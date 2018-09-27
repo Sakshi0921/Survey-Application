@@ -103,6 +103,7 @@ namespace SurveyApp.Controllers
         public ActionResult Create()
         {
             ViewBag.SurveyIDList = new SelectList(db.Surveys.Select(x=> new { SurveyId = x.SurveyId, SurveyName = x.SurveyName }), "SurveyId", "SurveyName");
+            ViewBag.Category = new SelectList(db.Category.Select(n=>n.CategoryName));
             return View();
         }
 
