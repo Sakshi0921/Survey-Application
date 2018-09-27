@@ -19,6 +19,7 @@ namespace SurveyApp.Controllers
 
 
         // GET: Candidates
+        [Authorize(Roles ="Admin")]
         public ActionResult Index()
         {
             var candidate = db.Candidate.Include(c => c.Organization);
